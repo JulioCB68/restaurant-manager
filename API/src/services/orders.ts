@@ -60,4 +60,23 @@ export class OrdersService {
       data: { status },
     });
   }
+
+  static async getRevenue(startDate?: string, endDate?: string) {
+    // Monta o filtro baseado nas datas passadas
+    const dateFilter: any = {};
+
+    if (startDate) dateFilter.gte = new Date(startDate);
+    if (endDate) dateFilter.lte = new Date(endDate);
+
+    // Busca os pedidos finalizados (entregues) e soma o total
+    const revenue = await prisma.order.aggregate({
+      _sum: { total: true },
+      where: {
+        status: "DELIVERED", // Apenas pedidos que foram entregues contam para o lucro
+        createdAt: dateFilter.gte || dateFilter.lte ? dateFilter : undefined,
+      },
+    });
+
+    return { totalRevenue: revenue._sum.total || 0 }; // Retorna 0 se não houver pedidos
+  }
 }

@@ -72,4 +72,20 @@ export class OrdersController {
       return reply.status(400).send({ error: "Erro ao deletar pedido." });
     }
   }
+
+  static async getRevenue(req: FastifyRequest, reply: FastifyReply) {
+    try {
+      const { startDate, endDate } = req.query as {
+        startDate?: string;
+        endDate?: string;
+      };
+      const revenue = await OrdersService.getRevenue(startDate, endDate);
+      return reply.status(200).send(revenue);
+    } catch (error) {
+      return reply.status(400).send({
+        error:
+          error instanceof Error ? error.message : "Erro ao buscar os lucros.",
+      });
+    }
+  }
 }

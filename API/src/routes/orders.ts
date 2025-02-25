@@ -7,4 +7,6 @@ export async function ordersRoutes(app: FastifyInstance) {
   app.get("/orders/:id", OrdersController.getOrderById);
   app.patch("/orders/:orderId/status", OrdersController.updateOrderStatus);
   app.delete("/orders/:id", OrdersController.deleteOrder);
+
+  app.get("/revenue", OrdersController.getRevenue);
 }
