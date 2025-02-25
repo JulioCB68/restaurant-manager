@@ -1,6 +1,7 @@
 import cors from "@fastify/cors";
 import Fastify from "fastify";
 
+import { ordersRoutes } from "./routes/orders";
 import { tablesRoutes } from "./routes/tables";
 
 const app = Fastify();
@@ -11,6 +12,7 @@ app.register(cors, {
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Métodos permitidos
 });
 
+app.register(ordersRoutes);
 app.register(tablesRoutes);
 
 app.listen({ port: 9274 }, () => {
