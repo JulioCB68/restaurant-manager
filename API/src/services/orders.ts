@@ -29,17 +29,35 @@ export class OrdersService {
     return await prisma.order.findUnique({ where: { id } });
   }
 
-  static async updateOrderStatus(
-    id: string,
-    status: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELED"
-  ) {
-    return await prisma.order.update({
-      where: { id },
-      data: { status },
-    });
-  }
-
   static async deleteOrder(id: string) {
     return await prisma.order.delete({ where: { id } });
+  }
+
+  static async updateOrderStatus(orderId: string, status: string) {
+    // Verifica se o pedido existe
+    const order = await prisma.order.findUnique({
+      where: { id: orderId },
+    });
+
+    if (!order) {
+      throw new Error("Pedido não encontrado.");
+    }
+
+    // Valida se o status informado é um dos permitidos
+    const validStatuses = [
+      "PENDING",
+      "IN_PROGRESS",
+      "READY",
+      "DELIVERED",
+      "CANCELED",
+    ];
+    if (!validStatuses.includes(status)) {
+      throw new Error("Status inválido.");
+    }
+
+    return await prisma.order.update({
+      where: { id: orderId },
+      data: { status },
+    });
   }
 }

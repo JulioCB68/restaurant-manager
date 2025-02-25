@@ -44,17 +44,22 @@ export class OrdersController {
 
   static async updateOrderStatus(req: FastifyRequest, reply: FastifyReply) {
     try {
-      const { id } = req.params as { id: string };
-      const { status } = req.body as {
-        status: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELED";
-      };
+      const { orderId } = req.params as { orderId: string };
+      const { status } = req.body as { status: string };
 
-      const order = await OrdersService.updateOrderStatus(id, status);
-      return reply.send(order);
+      const updatedOrder = await OrdersService.updateOrderStatus(
+        orderId,
+        status
+      );
+
+      return reply.status(200).send(updatedOrder);
     } catch (error) {
-      return reply
-        .status(400)
-        .send({ error: "Erro ao atualizar status do pedido." });
+      return reply.status(400).send({
+        error:
+          error instanceof Error
+            ? error.message
+            : "Erro ao atualizar o status do pedido.",
+      });
     }
   }
 
