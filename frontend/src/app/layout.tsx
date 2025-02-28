@@ -3,10 +3,10 @@ import "@/styles/globals.css";
 import { HandPlatter } from "lucide-react";
 
 import Links from "@/components/links";
-import { ThemeProvider } from "@/components/theme-provider";
 import ToggleTheme from "@/components/toggle-theme";
 import { Separator } from "@/components/ui/separator";
 import { poppins } from "@/config/font";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 export default function RootLayout({
   children,
