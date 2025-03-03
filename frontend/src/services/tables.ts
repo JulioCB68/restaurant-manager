@@ -1,6 +1,6 @@
 import { api } from "@/lib/axios";
 
-type TableStatus = "available" | "occupied" | "reserved";
+type TableStatus = "AVAILABLE" | "OCCUPIED" | "RESERVED" | "UNAVAILABLE";
 
 export interface ITableResponse {
   id?: number;

@@ -1,23 +1,20 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-type TableStatus = "available" | "occupied" | "reserved";
+import { formatStatus, statusColors } from "../helpers";
+
+type TableStatus = "AVAILABLE" | "OCCUPIED" | "RESERVED" | "UNAVAILABLE";
 
 interface IInfoCardProps {
   status: TableStatus;
-  quantity: number;
+  quantity: number | undefined;
 }
 
-export default function InfoCard({ status, quantity }: IInfoCardProps) {
-  const statusColors = {
-    available: "bg-green-500",
-    occupied: "bg-red-500",
-    reserved: "bg-yellow-500",
-  };
+export default function StatusCard({ status, quantity }: IInfoCardProps) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium capitalize">
-          {status} Tables
+          {formatStatus(status)} Tables
         </CardTitle>
         <div className={`size-4 rounded-full ${statusColors[status]}`} />
       </CardHeader>

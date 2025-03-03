@@ -1,4 +1,4 @@
-import InfoCard from "@/components/info-card";
+import StatusList from "@/components/status-card/status-list";
 import Filter from "@/components/table/filter";
 import TablesList from "@/components/table/tables-list";
 import { Button } from "@/components/ui/button";
@@ -14,12 +14,7 @@ export default function Home() {
 
         <Filter />
 
-        {/* Stats Cards */}
-        <div className="grid gap-4 md:grid-cols-3">
-          <InfoCard status="available" quantity={7} />
-          <InfoCard status="occupied" quantity={7} />
-          <InfoCard status="reserved" quantity={7} />
-        </div>
+        <StatusList />
 
         <TablesList />
       </div>
