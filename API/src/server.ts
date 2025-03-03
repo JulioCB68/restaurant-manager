@@ -8,7 +8,7 @@ const app = Fastify();
 
 // Habilita CORS para todas as origens (ajuste conforme necessário)
 app.register(cors, {
-  origin: "http://localhost:9274", // Permite todas as origens
+  origin: ["http://localhost:9274", "http://localhost:3000"], // Permite todas as origens
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Métodos permitidos
 });
 
